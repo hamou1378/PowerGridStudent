@@ -7,9 +7,11 @@ class StrategieReseau:
 
 class StrategieReseauManuelle(StrategieReseau):
     def configurer(self, t: Terrain) -> tuple[int, dict[int, tuple[int, int]], list[int]]:
+        # RÉSEAU MANUEL = même principe que AUTO pour l’instant
         noeuds = {}
         arcs = []
 
+        # trouver entrée
         entree = None
         for y, ligne in enumerate(t.cases):
             for x, case in enumerate(ligne):
@@ -25,6 +27,7 @@ class StrategieReseauManuelle(StrategieReseau):
         noeuds[0] = entree
         nid = 1
 
+        # ajouter un noeud par client
         for y, ligne in enumerate(t.cases):
             for x, case in enumerate(ligne):
                 if case == Case.CLIENT:
@@ -44,7 +47,6 @@ class StrategieReseauAuto(StrategieReseau):
         for y, ligne in enumerate(t.cases):
             for x, case in enumerate(ligne):
                 if case == Case.ENTREE:
-                    # ICI : on met (ligne, colonne)
                     entree = (y, x)
                     break
             if entree:
@@ -53,14 +55,12 @@ class StrategieReseauAuto(StrategieReseau):
         if not entree:
             return -1, {}, []
 
-        # noeud 0 = entrée (ligne, colonne)
         noeuds[0] = entree
         nid = 1
 
         for y, ligne in enumerate(t.cases):
             for x, case in enumerate(ligne):
                 if case == Case.CLIENT:
-                    # ICI : on met aussi (ligne, colonne)
                     noeuds[nid] = (y, x)
                     arcs.append((0, nid))
                     nid += 1
