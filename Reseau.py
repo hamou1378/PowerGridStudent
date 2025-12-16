@@ -1,4 +1,3 @@
-
 from Terrain import Terrain, Case
 from StrategieReseau import StrategieReseau, StrategieReseauAuto
 
@@ -85,4 +84,3 @@ class Reseau:
             else:
                 cout += 1
         return cout
-
